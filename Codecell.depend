@@ -1,0 +1,103 @@
+# depslib dependency file v1.0
+1596532806 source:f:\study\1-3\oop\oop project\git repo2\codecell\codecell\main.cpp
+	"prisoner.h"
+	"staff.h"
+	"to_be_executed.h"
+	"bookkeeper.h"
+	"people.h"
+	"guards.h"
+	"Maximum_security_prisoner.h"
+	"medium_security_prisoner.h"
+	"minimum_security_prisoner.h"
+	<fstream>
+	<ios>
+	<sstream>
+	<string>
+	<cstring>
+	<iostream>
+	<windows.h>
+
+1596457935 f:\study\1-3\oop\oop project\git repo2\codecell\codecell\include\prisoner.h
+	"people.h"
+
+1596457935 f:\study\1-3\oop\oop project\git repo2\codecell\codecell\include\people.h
+
+1596457935 f:\study\1-3\oop\oop project\git repo2\codecell\codecell\include\staff.h
+	"people.h"
+
+1596474127 f:\study\1-3\oop\oop project\git repo2\codecell\codecell\include\to_be_executed.h
+	"maximum_security_prisoner.h"
+
+1596474127 f:\study\1-3\oop\oop project\git repo2\codecell\codecell\include\maximum_security_prisoner.h
+	"prisoner.h"
+
+1596532926 f:\study\1-3\oop\oop project\git repo2\codecell\codecell\include\bookkeeper.h
+	"prisoner.h"
+	"staff.h"
+	"to_be_executed.h"
+	"people.h"
+	"guards.h"
+	"Maximum_security_prisoner.h"
+	"medium_security_prisoner.h"
+	"minimum_security_prisoner.h"
+	<string>
+
+1596457935 f:\study\1-3\oop\oop project\git repo2\codecell\codecell\include\guards.h
+	"people.h"
+
+1596474127 f:\study\1-3\oop\oop project\git repo2\codecell\codecell\include\medium_security_prisoner.h
+	"prisoner.h"
+
+1596474127 f:\study\1-3\oop\oop project\git repo2\codecell\codecell\include\minimum_security_prisoner.h
+	"prisoner.h"
+
+1596457935 source:f:\study\1-3\oop\oop project\git repo2\codecell\codecell\src\guards.cpp
+	"guards.h"
+	<iostream>
+
+1596457935 source:f:\study\1-3\oop\oop project\git repo2\codecell\codecell\src\maximum_security_prisoner.cpp
+	"maximum_security_prisoner.h"
+
+1596457935 source:f:\study\1-3\oop\oop project\git repo2\codecell\codecell\src\medium_security_prisoner.cpp
+	"medium_security_prisoner.h"
+	"prisoner.h"
+
+1596457935 source:f:\study\1-3\oop\oop project\git repo2\codecell\codecell\src\minimum_security_prisoner.cpp
+	"minimum_security_prisoner.h"
+
+1596457935 source:f:\study\1-3\oop\oop project\git repo2\codecell\codecell\src\prisoner.cpp
+	"people.h"
+	"prisoner.h"
+	<iostream>
+
+1596457935 source:f:\study\1-3\oop\oop project\git repo2\codecell\codecell\src\staff.cpp
+	"staff.h"
+	<iostream>
+
+1596532926 source:f:\study\1-3\oop\oop project\git repo2\codecell\codecell\src\bookkeeper.cpp
+	"prisoner.h"
+	"staff.h"
+	"to_be_executed.h"
+	"bookkeeper.h"
+	"people.h"
+	"guards.h"
+	"Maximum_security_prisoner.h"
+	"medium_security_prisoner.h"
+	"minimum_security_prisoner.h"
+	<fstream>
+	<ios>
+	<sstream>
+	<string>
+	<cstring>
+	<iostream>
+	<limits>
+	<algorithm>
+
+1596532918 source:f:\study\1-3\oop\oop project\git repo2\codecell\codecell\src\people.cpp
+	"people.h"
+	<iostream>
+
+1596457935 source:f:\study\1-3\oop\oop project\git repo2\codecell\codecell\src\to_be_executed.cpp
+	"to_be_executed.h"
+	<iostream>
+
