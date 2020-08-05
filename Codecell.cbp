@@ -32,7 +32,25 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/People.h" />
+		<Unit filename="include/bookkeeper.h" />
+		<Unit filename="include/guards.h" />
+		<Unit filename="include/maximum_security_prisoner.h" />
+		<Unit filename="include/medium_security_prisoner.h" />
+		<Unit filename="include/minimum_security_prisoner.h" />
+		<Unit filename="include/prisoner.h" />
+		<Unit filename="include/staff.h" />
+		<Unit filename="include/to_be_executed.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/bookkeeper.cpp" />
+		<Unit filename="src/guards.cpp" />
+		<Unit filename="src/maximum_security_prisoner.cpp" />
+		<Unit filename="src/medium_security_prisoner.cpp" />
+		<Unit filename="src/minimum_security_prisoner.cpp" />
+		<Unit filename="src/people.cpp" />
+		<Unit filename="src/prisoner.cpp" />
+		<Unit filename="src/staff.cpp" />
+		<Unit filename="src/to_be_executed.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />
