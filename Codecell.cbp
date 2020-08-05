@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -22,6 +23,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -32,6 +34,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/Finance.h" />
 		<Unit filename="include/People.h" />
 		<Unit filename="include/bookkeeper.h" />
 		<Unit filename="include/guards.h" />
@@ -42,6 +45,7 @@
 		<Unit filename="include/staff.h" />
 		<Unit filename="include/to_be_executed.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/Finance.cpp" />
 		<Unit filename="src/bookkeeper.cpp" />
 		<Unit filename="src/guards.cpp" />
 		<Unit filename="src/maximum_security_prisoner.cpp" />
