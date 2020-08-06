@@ -156,6 +156,181 @@ double Bookkeeper::calcBail()
 double Bookkeeper::calcSalary()
 {
     //read through the staff and guards records to get salary info
+    double totalSalary = 0.0;
+
+    //read the staff file
+    ifstream read_executed("Staff_list.txt");
+    while(1)
+    {
+        // code copied from read_staff_in_file function
+        string key_string;
+
+		char fname[100];
+		if(!getline (read_executed, key_string))
+			break;
+		strcpy(fname,key_string.c_str());
+
+		char lname[10]=" ";
+
+		char x[3];
+		getline (read_executed, key_string);
+		stringstream geek1(key_string);
+		int A = 0;
+		geek1>>A;
+
+		char g[10];
+		getline (read_executed, key_string);
+		strcpy(g,key_string.c_str());
+
+		char p[14];
+		getline (read_executed, key_string);
+		strcpy(p,key_string.c_str());
+
+		char ad[40];
+		getline (read_executed, key_string);
+		strcpy(ad,key_string.c_str());
+
+		char o[30];
+		getline (read_executed, key_string);
+		strcpy(o,key_string.c_str());
+
+		char hs[50];
+		getline (read_executed, key_string);
+		strcpy(hs,key_string.c_str());
+
+		char r[15];
+		getline (read_executed, key_string);
+		strcpy(r,key_string.c_str());
+
+		char id[11];
+		getline (read_executed, key_string);
+		strcpy(id,key_string.c_str());
+
+		char Profession[50];
+		getline (read_executed, key_string);
+		strcpy(Profession,key_string.c_str());
+
+		char rank[20];
+		getline (read_executed, key_string);
+		strcpy(rank,key_string.c_str());
+
+		char shift[20];
+		getline (read_executed, key_string);
+		strcpy(shift,key_string.c_str());
+
+		char psyche[50];
+		getline (read_executed, key_string);
+		strcpy(psyche,key_string.c_str());
+
+		char requests[30];
+		getline (read_executed, key_string);
+		strcpy(requests,key_string.c_str());
+
+		getline (read_executed, key_string);
+		stringstream geek(key_string);
+		double salary = 0;
+		geek>>salary;
+
+		getline (read_executed, key_string);
+		stringstream geek2(key_string);
+		int experience = 0;
+		geek2>>experience;
+
+		getline (read_executed, key_string);
+
+		//total salary sum
+		totalSalary += salary;
+    }
+
+    // read the guard file
+    ifstream read_executed2("Guards_list.txt");
+    while(1)
+    {
+        string key_string;
+
+		char fname[100];
+		if(!getline (read_executed2, key_string))
+			break;
+		strcpy(fname,key_string.c_str());
+
+		char lname[10]=" ";
+
+		char x[3];
+		getline (read_executed2, key_string);
+		stringstream geek1(key_string);
+		int A = 0;
+		geek1>>A;
+
+		char g[10];
+		getline (read_executed2, key_string);
+		strcpy(g,key_string.c_str());
+
+		char p[14];
+		getline (read_executed2, key_string);
+		strcpy(p,key_string.c_str());
+
+		char ad[40];
+		getline (read_executed2, key_string);
+		strcpy(ad,key_string.c_str());
+
+		char o[30];
+		getline (read_executed2, key_string);
+		strcpy(o,key_string.c_str());
+
+		char hs[50];
+		getline (read_executed2, key_string);
+		strcpy(hs,key_string.c_str());
+
+		char r[15];
+		getline (read_executed2, key_string);
+		strcpy(r,key_string.c_str());
+
+		char id[11];
+		getline (read_executed2, key_string);
+		strcpy(id,key_string.c_str());
+
+		char unit[50];
+		getline (read_executed2, key_string);
+		strcpy(unit,key_string.c_str());
+
+		char rank[20];
+		getline (read_executed2, key_string);
+		strcpy(rank,key_string.c_str());
+
+		char shift[20];
+		getline (read_executed2, key_string);
+		strcpy(shift,key_string.c_str());
+
+
+		char psyche_evaluation[40];
+		getline (read_executed2, key_string);
+		strcpy(psyche_evaluation,key_string.c_str());
+
+		char post[30];
+		getline (read_executed2, key_string);
+		strcpy(post,key_string.c_str());
+
+		char ammunition_status[30];
+		getline (read_executed2, key_string);
+		strcpy(ammunition_status,key_string.c_str());
+
+
+		getline (read_executed2, key_string);
+		stringstream geek(key_string);
+		double salary = 0;
+		geek>>salary;
+
+		getline (read_executed2, key_string);
+		stringstream geek2(key_string);
+		int experience = 0;
+		geek2>>experience;
+
+		getline (read_executed2, key_string);
+
+		//total salary sum
+		totalSalary += salary;
+    }
+    return totalSalary;
 }
 
 
@@ -605,6 +780,7 @@ void Bookkeeper::input_Finance()
     }
 
     /** salary is not inputted by user*/
+    double salary = Bookkeeper::calcSalary();
 
     double edu;
 	/**For not letting the user input anything other than the intended output*/
@@ -630,6 +806,7 @@ void Bookkeeper::input_Finance()
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
         std::cout << "Invalid input. Try again.\n";
     }
+    std::cout<<"\n\n\n"<<salary<<"\n";
 }
 
 
