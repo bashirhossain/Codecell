@@ -150,7 +150,8 @@ bool isIn(char crime[], string cl[], int n)  // checks if crime is in list
 
 double Bookkeeper::calcBail()
 {
-
+    // read and count all the prisoners
+    int maxSec = 0, medSec = 0;
 }
 
 double Bookkeeper::calcSalary()
@@ -164,67 +165,13 @@ double Bookkeeper::calcSalary()
     {
         // code copied from read_staff_in_file function
         string key_string;
-
-		char fname[100];
 		if(!getline (read_executed, key_string))
 			break;
-		strcpy(fname,key_string.c_str());
 
-		char lname[10]=" ";
-
-		char x[3];
-		getline (read_executed, key_string);
-		stringstream geek1(key_string);
-		int A = 0;
-		geek1>>A;
-
-		char g[10];
-		getline (read_executed, key_string);
-		strcpy(g,key_string.c_str());
-
-		char p[14];
-		getline (read_executed, key_string);
-		strcpy(p,key_string.c_str());
-
-		char ad[40];
-		getline (read_executed, key_string);
-		strcpy(ad,key_string.c_str());
-
-		char o[30];
-		getline (read_executed, key_string);
-		strcpy(o,key_string.c_str());
-
-		char hs[50];
-		getline (read_executed, key_string);
-		strcpy(hs,key_string.c_str());
-
-		char r[15];
-		getline (read_executed, key_string);
-		strcpy(r,key_string.c_str());
-
-		char id[11];
-		getline (read_executed, key_string);
-		strcpy(id,key_string.c_str());
-
-		char Profession[50];
-		getline (read_executed, key_string);
-		strcpy(Profession,key_string.c_str());
-
-		char rank[20];
-		getline (read_executed, key_string);
-		strcpy(rank,key_string.c_str());
-
-		char shift[20];
-		getline (read_executed, key_string);
-		strcpy(shift,key_string.c_str());
-
-		char psyche[50];
-		getline (read_executed, key_string);
-		strcpy(psyche,key_string.c_str());
-
-		char requests[30];
-		getline (read_executed, key_string);
-		strcpy(requests,key_string.c_str());
+		for(int i = 0; i < 13; i++)
+        {
+            getline (read_executed, key_string);  // data that is irrelevant
+        }
 
 		getline (read_executed, key_string);
 		stringstream geek(key_string);
@@ -232,9 +179,6 @@ double Bookkeeper::calcSalary()
 		geek>>salary;
 
 		getline (read_executed, key_string);
-		stringstream geek2(key_string);
-		int experience = 0;
-		geek2>>experience;
 
 		getline (read_executed, key_string);
 
@@ -248,72 +192,12 @@ double Bookkeeper::calcSalary()
     {
         string key_string;
 
-		char fname[100];
 		if(!getline (read_executed2, key_string))
 			break;
-		strcpy(fname,key_string.c_str());
-
-		char lname[10]=" ";
-
-		char x[3];
-		getline (read_executed2, key_string);
-		stringstream geek1(key_string);
-		int A = 0;
-		geek1>>A;
-
-		char g[10];
-		getline (read_executed2, key_string);
-		strcpy(g,key_string.c_str());
-
-		char p[14];
-		getline (read_executed2, key_string);
-		strcpy(p,key_string.c_str());
-
-		char ad[40];
-		getline (read_executed2, key_string);
-		strcpy(ad,key_string.c_str());
-
-		char o[30];
-		getline (read_executed2, key_string);
-		strcpy(o,key_string.c_str());
-
-		char hs[50];
-		getline (read_executed2, key_string);
-		strcpy(hs,key_string.c_str());
-
-		char r[15];
-		getline (read_executed2, key_string);
-		strcpy(r,key_string.c_str());
-
-		char id[11];
-		getline (read_executed2, key_string);
-		strcpy(id,key_string.c_str());
-
-		char unit[50];
-		getline (read_executed2, key_string);
-		strcpy(unit,key_string.c_str());
-
-		char rank[20];
-		getline (read_executed2, key_string);
-		strcpy(rank,key_string.c_str());
-
-		char shift[20];
-		getline (read_executed2, key_string);
-		strcpy(shift,key_string.c_str());
-
-
-		char psyche_evaluation[40];
-		getline (read_executed2, key_string);
-		strcpy(psyche_evaluation,key_string.c_str());
-
-		char post[30];
-		getline (read_executed2, key_string);
-		strcpy(post,key_string.c_str());
-
-		char ammunition_status[30];
-		getline (read_executed2, key_string);
-		strcpy(ammunition_status,key_string.c_str());
-
+        for(int i = 0; i < 14; i++)
+        {
+            getline (read_executed2, key_string);
+        }
 
 		getline (read_executed2, key_string);
 		stringstream geek(key_string);
@@ -321,9 +205,6 @@ double Bookkeeper::calcSalary()
 		geek>>salary;
 
 		getline (read_executed2, key_string);
-		stringstream geek2(key_string);
-		int experience = 0;
-		geek2>>experience;
 
 		getline (read_executed2, key_string);
 
