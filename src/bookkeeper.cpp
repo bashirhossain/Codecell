@@ -148,10 +148,188 @@ bool isIn(char crime[], string cl[], int n)  // checks if crime is in list
     return false;
 }
 
+int Bookkeeper::countExe()
+{
+    int exe = 0;
+
+    // read to_be_executed file
+    ifstream read_executed("execution_list.txt");
+    while(1)
+    {
+        string key_string;
+        if(!getline (read_executed, key_string))
+			break;
+        for(int i = 0; i < 32; i++)
+        {
+            getline (read_executed, key_string);
+        }
+        exe++;
+    }
+    return exe - 1;
+}
+
+int Bookkeeper::countMax()
+{
+    int maxCount = 0;
+
+    //read max security prisoner file
+    ifstream read_executed("Maximum_security_list.txt");
+    while(1)
+    {
+        string key_string;
+        if(!getline (read_executed, key_string))
+			break;
+        for(int i = 0; i < 31; i++)
+        {
+            getline (read_executed, key_string);
+        }
+        maxCount++;
+    }
+    return maxCount - 1;
+}
+
+int Bookkeeper::countMed()
+{
+    int medCount = 0;
+
+    //read med security prisoner file
+    ifstream read_executed("Medium_security_list.txt");
+    while(1)
+    {
+        string key_string;
+        if(!getline (read_executed, key_string))
+			break;
+        for(int i = 0; i < 31; i++)
+        {
+            getline (read_executed, key_string);
+        }
+        medCount++;
+    }
+    return medCount - 1;
+}
+
+int Bookkeeper::countMin()
+{
+    int minCount = 0;
+
+    //read med security prisoner file
+    ifstream read_executed("Minimum_security_list.txt");
+    while(1)
+    {
+        string key_string;
+        if(!getline (read_executed, key_string))
+			break;
+        for(int i = 0; i < 31; i++)
+        {
+            getline (read_executed, key_string);
+        }
+        minCount++;
+    }
+    return minCount - 1;
+}
+
 double Bookkeeper::calcBail()
 {
-    // read and count all the prisoners
-    int maxSec = 0, medSec = 0;
+    double total_bail = 0.0;
+    int exe = 0.0, maxBail = 0.0, minBail = 0.0, medBail = 0.0;
+
+    // read to be executed file
+    ifstream read_executed("execution_list.txt");
+    while(1)
+    {
+        string key_string;
+        if(!getline (read_executed, key_string))
+			break;
+        for(int i = 0; i < 27; i++)
+        {
+            getline (read_executed, key_string);
+        }
+        getline (read_executed, key_string);
+		stringstream geek2(key_string);
+		int Bail_amount = 0;
+		geek2>>Bail_amount;
+
+		exe += Bail_amount;
+
+		for(int i = 0; i < 5; i++)
+        {
+            getline (read_executed, key_string);
+        }
+    }
+
+    // read max sec file
+    ifstream read_executed2("Maximum_security_list.txt");
+    while(1)
+    {
+        string key_string;
+        if(!getline (read_executed2, key_string))
+			break;
+        for(int  i = 0; i < 27; i++)
+        {
+            getline (read_executed2, key_string);
+        }
+        getline (read_executed2, key_string);
+		stringstream geek2(key_string);
+		int Bail_amount = 0;
+		geek2>>Bail_amount;
+
+		maxBail += Bail_amount;
+
+		for(int i = 0; i < 3; i++)
+        {
+            getline (read_executed2, key_string);
+        }
+    }
+
+    // read med sec file
+    ifstream read_executed3("Medium_security_list.txt");
+    while(1)
+    {
+        string key_string;
+        if(!getline (read_executed3, key_string))
+			break;
+        for(int  i = 0; i < 27; i++)
+        {
+            getline (read_executed3, key_string);
+        }
+        getline (read_executed3, key_string);
+		stringstream geek2(key_string);
+		int Bail_amount = 0;
+		geek2>>Bail_amount;
+
+		medBail += Bail_amount;
+
+		for(int i = 0; i < 3; i++)
+        {
+            getline (read_executed3, key_string);
+        }
+    }
+
+    // read min sec file
+    ifstream read_executed4("Minimum_security_list.txt");
+    while(1)
+    {
+        string key_string;
+        if(!getline (read_executed4, key_string))
+			break;
+        for(int  i = 0; i < 27; i++)
+        {
+            getline (read_executed4, key_string);
+        }
+        getline (read_executed4, key_string);
+		stringstream geek2(key_string);
+		int Bail_amount = 0;
+		geek2>>Bail_amount;
+
+		minBail += Bail_amount;
+
+		for(int i = 0; i < 3; i++)
+        {
+            getline (read_executed4, key_string);
+        }
+    }
+
+    return (exe * 0.13) + (maxBail * 0.08) + (medBail * 0.04) + (minBail * 0.02);
 }
 
 double Bookkeeper::calcSalary()
@@ -428,7 +606,6 @@ void Bookkeeper::input_Prisoner()
 
 	std::cout<<"\nEnter Prisoner ID: ";
 	char id[11];
-	getchar();
 	cin>>id;
 	std::cout<<"\nEnter Crime: ";
 	char Crime[25];
@@ -494,9 +671,9 @@ void Bookkeeper::input_Prisoner()
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
         std::cout << "Invalid input. Try again.\n";
     }
+    getchar();
 	char Appeal_for_release_status[15];
 	std::cout<<"\nAppeal for release status: ";
-	getchar();
 	gets(Appeal_for_release_status);
 	char Utility_status[10];
 	std::cout<<"\nEnter Utility status: ";
@@ -634,6 +811,7 @@ void Bookkeeper::input_Finance()
     }
 
     /** bail is not inputted by user*/
+    double bail = Bookkeeper::calcBail();
 
     double lease;
 	/**For not letting the user input anything other than the intended output*/
@@ -687,7 +865,10 @@ void Bookkeeper::input_Finance()
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
         std::cout << "Invalid input. Try again.\n";
     }
-    std::cout<<"\n\n\n"<<salary<<"\n";
+
+    Finance F1(stipend, sales, bail, lease, maintenance, food, salary, edu, laundry, misc, qName);
+    Bookkeeper::write_finance_in_file(F1);
+    return;
 }
 
 
@@ -913,6 +1094,25 @@ void Bookkeeper:: write_minimum_security_prisoner(Minimum_security_prisoner P1)
 	/*P1.get_to_be_executed_last_meal()<<"\n"<<
 	P1.get_to_be_executed_execution_date()<<"\n"<<*/
 	std::endl;
+	execution_list.close();
+}
+
+void Bookkeeper::write_finance_in_file(Finance F1)
+{
+    ofstream execution_list("finance.txt",ios::app);
+    execution_list<<
+    F1.getQuarter()<<"\n"<<
+    F1.getStipend()<<"\n"<<
+    F1.getSales()<<"\n"<<
+    F1.getBail()<<"\n"<<
+    F1.getLease()<<"\n"<<
+    F1.getMaintenance()<<"\n"<<
+    F1.getFood()<<"\n"<<
+    F1.getSalary()<<"\n"<<
+    F1.getEdu()<<"\n"<<
+    F1.getLaundry()<<"\n"<<
+    F1.getMisc()<<"\n"<<
+    std::endl;
 	execution_list.close();
 }
 
