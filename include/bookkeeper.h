@@ -50,6 +50,8 @@ class Bookkeeper
 	void read_medium_security_prisoner(int mode);
 	void read_minimum_security_prisoner(int mode);
 
+	void read_finance_in_file();
+
 };
 
 #endif // BOOKKEEPER_H

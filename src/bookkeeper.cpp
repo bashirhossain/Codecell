@@ -114,11 +114,15 @@ void Bookkeeper::Open_book()
     }
     else if(x == 4)
     {
-        std::cout<<"\nInput Financial data(1), Something else(2)"<<std::endl;
+        std::cout<<"\nWrite Financial data(1), Read Financial data(2)"<<std::endl;
         std::cin>>x;
         if(x == 1)
         {
             Bookkeeper::input_Finance();
+        }
+        else if(x == 2)
+        {
+            Bookkeeper::read_finance_in_file();
         }
     }
 }
@@ -2063,5 +2067,74 @@ void Bookkeeper::read_minimum_security_prisoner(int mode)
         if(mode==2&&flag!=1)
             cout<<"Nothing found"<<endl;
 
+}
+
+void Bookkeeper::read_finance_in_file()
+{
+    ifstream read_executed("finance.txt");
+    while(1)
+    {
+        string key_string;
+        char qName[100];
+		if(!getline (read_executed, key_string))
+			break;
+		strcpy(qName,key_string.c_str());
+
+		getline (read_executed, key_string);
+		stringstream geek(key_string);
+		double stipend = 0;
+		geek>>stipend;
+
+		getline (read_executed, key_string);
+		stringstream geek2(key_string);
+		double sales = 0;
+		geek2>>sales;
+
+		getline (read_executed, key_string);
+		stringstream geek3(key_string);
+		double bail = 0;
+		geek3>>bail;
+
+		getline (read_executed, key_string);
+		stringstream geek4(key_string);
+		double lease = 0;
+		geek4>>lease;
+
+		getline (read_executed, key_string);
+		stringstream geek5(key_string);
+		double maintenance = 0;
+		geek5>>maintenance;
+
+		getline (read_executed, key_string);
+		stringstream geek6(key_string);
+		double food = 0;
+		geek6>>food;
+
+		getline (read_executed, key_string);
+		stringstream geek7(key_string);
+		double salary = 0;
+		geek7>>salary;
+
+		getline (read_executed, key_string);
+		stringstream geek8(key_string);
+		double edu = 0;
+		geek8>>edu;
+
+		getline (read_executed, key_string);
+		stringstream geek9(key_string);
+		double laundry = 0;
+		geek9>>laundry;
+
+		getline (read_executed, key_string);
+		stringstream geek10(key_string);
+		double misc = 0;
+		geek10>>misc;
+
+		getline (read_executed, key_string);
+
+		Finance F1(stipend, sales, bail, lease, maintenance, food, salary, edu, laundry, misc, qName);
+		F1.getInfo();
+		std::cout<<"\n\n"<<std::endl;
+    }
 }
 
