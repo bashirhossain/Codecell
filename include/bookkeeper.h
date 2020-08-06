@@ -22,6 +22,7 @@ class Bookkeeper
 	void input_Staff();
 	void input_Guard();
 	void input_Finance();
+	void input_old_Finance();
 	//finance specific functions
 	int countExe();
 	int countMin();
