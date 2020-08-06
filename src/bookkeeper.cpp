@@ -7,6 +7,7 @@
 #include"../include/maximum_security_prisoner.h"
 #include"../include/medium_security_prisoner.h"
 #include"../include/minimum_security_prisoner.h"
+#include"../include/Finance.h"
 #include <fstream>
 #include <ios>
 #include <sstream>
@@ -19,7 +20,7 @@ using namespace std;
 void Bookkeeper::Open_book()
 {
 
-	std::cout<<"\nDo you want to Read(1) or Write(2) or search(3)"<<std::endl;
+	std::cout<<"\nDo you want to Read(1) or Write(2) or Search(3) or Finances(4)"<<std::endl;
 	int x;
 	std::cin>>x;
 	if(x==1)
@@ -111,9 +112,18 @@ void Bookkeeper::Open_book()
        }
 
     }
+    else if(x == 4)
+    {
+        std::cout<<"\nInput Financial data(1), Something else(2)"<<std::endl;
+        std::cin>>x;
+        if(x == 1)
+        {
+            Bookkeeper::input_Finance();
+        }
+    }
 }
 
-// comparison functions
+// comparison functions & finance specific functions
 bool lowerCompare(char s[], string toBeCompared)
 {
     string temp = s;
@@ -136,6 +146,16 @@ bool isIn(char crime[], string cl[], int n)  // checks if crime is in list
         }
     }
     return false;
+}
+
+double Bookkeeper::calcBail()
+{
+
+}
+
+double Bookkeeper::calcSalary()
+{
+    //read through the staff and guards records to get salary info
 }
 
 
@@ -533,6 +553,85 @@ void Bookkeeper::input_Prisoner()
         }
     }
 }
+
+
+void Bookkeeper::input_Finance()
+{
+    std::cout<<"\nEnter Quarter Name: ";
+    char qName[20];
+	std::cin>>qName;
+    double stipend;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter Government Stipend (Double values): " && !(std::cin >> stipend))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+    double sales;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter Sales Revenue (Double values): " && !(std::cin >> sales))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+
+    /** bail is not inputted by user*/
+
+    double lease;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter Lease (Double values): " && !(std::cin >> lease))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+    double maintenance;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter Maintenance cost (Double values): " && !(std::cin >> maintenance))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+    double food;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter Food cost (Double values): " && !(std::cin >> food))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+
+    /** salary is not inputted by user*/
+
+    double edu;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter Education Program cost (Double values): " && !(std::cin >> edu))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+    double laundry;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter Laundry cost (Double values): " && !(std::cin >> laundry))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+    double misc;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter any other cost (Double values): " && !(std::cin >> misc))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+}
+
 
 //Writers
 void Bookkeeper::write_Staff_in_file(Staff P1)

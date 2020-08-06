@@ -217,7 +217,7 @@
 1596537034 g:\class\coding projects\codecell\code\include\maximum_security_prisoner.h
 	"prisoner.h"
 
-1596537033 g:\class\coding projects\codecell\code\include\bookkeeper.h
+1596697650 g:\class\coding projects\codecell\code\include\bookkeeper.h
 	"prisoner.h"
 	"staff.h"
 	"to_be_executed.h"
@@ -236,4 +236,10 @@
 
 1596537034 g:\class\coding projects\codecell\code\include\minimum_security_prisoner.h
 	"prisoner.h"
+
+1596642525 source:g:\class\coding projects\codecell\code\src\finance.cpp
+	"Finance.h"
+	<iostream>
+
+1596642212 g:\class\coding projects\codecell\code\include\finance.h
 

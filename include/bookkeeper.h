@@ -20,6 +20,10 @@ class Bookkeeper
 	void input_Prisoner();
 	void input_Staff();
 	void input_Guard();
+	void input_Finance();
+	//finance specific functions
+	double calcBail();
+	double calcSalary();
 	//checkers
 	//bool lowerCompare(char s[], std::string toBeCompared);
 	//bool isIn(char crime[], std::string cl[], int n);
