@@ -114,7 +114,7 @@ void Bookkeeper::Open_book()
     }
     else if(x == 4)
     {
-        std::cout<<"\nWrite Financial data(1), Read Financial data(2)"<<std::endl;
+        std::cout<<"\nWrite Financial data(1), Read Financial data(2), Get Prediction(3)"<<std::endl;
         std::cin>>x;
         if(x == 1)
         {
@@ -1401,7 +1401,7 @@ void Bookkeeper::update_interface(char u[],char attribute[],char att[],int*u_i,d
 
       cout<<"ID or name : ";
       cin.getline(u,30);
-      cout<<"Choose attribute: ";
+      cout<<"Choose attribute (age, experience, bail amount, solitary confinement visits, salary): ";
       cin.getline(attribute,50);
       cout<<"\n new value :"<<endl;
       if(strcmp(attribute,"age")==0||strcmp(attribute,"experience")==0||strcmp(attribute,"bail amount")==0||strcmp(attribute,"solitary confinement visits")==0)
@@ -1625,9 +1625,13 @@ void Bookkeeper::read_Guard_in_file(int mode)
     {
         string key_string;
 
-        char fname[100];
+
         if(!getline (read_executed, key_string))
-            break;
+            {
+              break;
+            }
+    char fname[100]="";
+
         strcpy(fname,key_string.c_str());
 
         char lname[10]="";
