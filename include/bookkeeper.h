@@ -27,6 +27,10 @@ class Bookkeeper
 	int countMin();
 	int countMed();
 	int countMax();
+	int countFinancialEntry();
+	double getCostPrediction();
+	double getTotalCost();
+	double getCostTimesX();
 	double calcBail();
 	double calcSalary();
 	//checkers

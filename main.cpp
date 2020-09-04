@@ -19,7 +19,19 @@ using namespace std;
 
 int main()
 {
-      	Bookkeeper B1;
+    Bookkeeper B1;
+    string title = R"(
+   ___         ___       ___    _____
+  / __\___   __| | ___  / __\___| | |
+ / /  / _ \ / _` |/ _ \/ /  / _ \ | |
+/ /__| (_) | (_| |  __/ /__|  __/ | |
+\____/\___/ \__,_|\___\____/\___|_|_|
+                                     )";
+
+
+    cout<<"\t\t\t"<<title<<endl<<endl;
+    cout<<endl<<endl<<"                         Welcome"<<endl;
+    cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"<<endl;
 	while(1)
 	{
 		B1.Open_book();

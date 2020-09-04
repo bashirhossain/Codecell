@@ -48,6 +48,7 @@ class Finance
         void setMisc(double miscAmount);
         void setQuarter(char* qName);
         void setInfo(double stipend, double sales, double bailAmount, double leaseAmount, double maintAmount, double foodAmount, double salaryAmount, double eduAmount, double laundryAmount, double miscAmount, char* qName);
+
 };
 
 #endif // FINANCE_H

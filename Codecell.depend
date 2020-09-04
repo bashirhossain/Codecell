@@ -119,7 +119,7 @@
 	<iostream>
 	<windows.h>
 
-1599059946 source:g:\class\coding projects\codecell\code\src\bookkeeper.cpp
+1599247591 source:g:\class\coding projects\codecell\code\src\bookkeeper.cpp
 	"../include/prisoner.h"
 	"../include/staff.h"
 	"../include/to_be_executed.h"
@@ -218,7 +218,7 @@
 1596537034 g:\class\coding projects\codecell\code\include\maximum_security_prisoner.h
 	"prisoner.h"
 
-1599056033 g:\class\coding projects\codecell\code\include\bookkeeper.h
+1599244888 g:\class\coding projects\codecell\code\include\bookkeeper.h
 	"prisoner.h"
 	"staff.h"
 	"to_be_executed.h"
@@ -239,11 +239,12 @@
 1596537034 g:\class\coding projects\codecell\code\include\minimum_security_prisoner.h
 	"prisoner.h"
 
-1596642525 source:g:\class\coding projects\codecell\code\src\finance.cpp
+1599070959 source:g:\class\coding projects\codecell\code\src\finance.cpp
 	"Finance.h"
 	<iostream>
+	<fstream>
 
-1596642212 g:\class\coding projects\codecell\code\include\finance.h
+1599070965 g:\class\coding projects\codecell\code\include\finance.h
 
 1598103211 source:e:\codecell\main.cpp
 	"include/prisoner.h"

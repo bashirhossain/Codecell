@@ -124,6 +124,10 @@ void Bookkeeper::Open_book()
         {
             Bookkeeper::read_finance_in_file();
         }
+        else if(x == 3)
+        {
+            cout<<endl<<Bookkeeper::getCostPrediction()<<endl;
+        }
     }
 
     else if(x==5)
@@ -162,7 +166,6 @@ void Bookkeeper::Open_book()
             }
 
        }
-
 
     }
 }
@@ -250,6 +253,162 @@ int Bookkeeper::countMed()
         medCount++;
     }
     return medCount - 1;
+}
+
+int Bookkeeper::countFinancialEntry()
+{
+    int entries = 0;
+
+    // read finance.txt file
+    ifstream read_executed("finance.txt");
+    while(1)
+    {
+        string key_string;
+        if(!getline (read_executed, key_string))
+			break;
+        for(int i = 0; i < 11; i++)
+        {
+            getline (read_executed, key_string);
+        }
+        entries++;
+    }
+    return entries;
+}
+
+double Bookkeeper::getTotalCost()
+{
+    double total = 0;
+    cout<<endl<<"Total cost in previous entries: ";
+    //reading from finance.txt
+    ifstream read_executed("finance.txt");
+    while(1)
+    {
+        string key_string;
+		if(!getline (read_executed, key_string))
+			break;
+		getline (read_executed, key_string);
+
+		getline (read_executed, key_string);
+
+		getline (read_executed, key_string);
+
+		getline (read_executed, key_string);
+		stringstream geek4(key_string);
+		double lease = 0;
+		geek4>>lease;
+
+		getline (read_executed, key_string);
+		stringstream geek5(key_string);
+		double maintenance = 0;
+		geek5>>maintenance;
+
+		getline (read_executed, key_string);
+		stringstream geek6(key_string);
+		double food = 0;
+		geek6>>food;
+
+		getline (read_executed, key_string);
+		stringstream geek7(key_string);
+		double salary = 0;
+		geek7>>salary;
+
+		getline (read_executed, key_string);
+		stringstream geek8(key_string);
+		double edu = 0;
+		geek8>>edu;
+
+		getline (read_executed, key_string);
+		stringstream geek9(key_string);
+		double laundry = 0;
+		geek9>>laundry;
+
+		getline (read_executed, key_string);
+		stringstream geek10(key_string);
+		double misc = 0;
+		geek10>>misc;
+
+		getline (read_executed, key_string);
+
+		total = total + lease + maintenance + food + salary + edu + laundry + misc;
+		cout<<endl<<lease + maintenance + food + salary + edu + laundry + misc;
+    }
+    return total;
+}
+
+double Bookkeeper::getCostTimesX()
+{
+    double total = 0;
+    int i = 1;
+    //reading from finance.txt
+    ifstream read_executed("finance.txt");
+    while(1)
+    {
+        string key_string;
+		if(!getline (read_executed, key_string))
+			break;
+		getline (read_executed, key_string);
+
+		getline (read_executed, key_string);
+
+		getline (read_executed, key_string);
+
+		getline (read_executed, key_string);
+		stringstream geek4(key_string);
+		double lease = 0;
+		geek4>>lease;
+
+		getline (read_executed, key_string);
+		stringstream geek5(key_string);
+		double maintenance = 0;
+		geek5>>maintenance;
+
+		getline (read_executed, key_string);
+		stringstream geek6(key_string);
+		double food = 0;
+		geek6>>food;
+
+		getline (read_executed, key_string);
+		stringstream geek7(key_string);
+		double salary = 0;
+		geek7>>salary;
+
+		getline (read_executed, key_string);
+		stringstream geek8(key_string);
+		double edu = 0;
+		geek8>>edu;
+
+		getline (read_executed, key_string);
+		stringstream geek9(key_string);
+		double laundry = 0;
+		geek9>>laundry;
+
+		getline (read_executed, key_string);
+		stringstream geek10(key_string);
+		double misc = 0;
+		geek10>>misc;
+
+		getline (read_executed, key_string);
+
+		total = total + (lease + maintenance + food + salary + edu + laundry + misc) * i;
+		i++;
+    }
+    return total;
+}
+
+double Bookkeeper::getCostPrediction()
+{
+    int n = Bookkeeper::countFinancialEntry();
+    int x = (n * (n + 1)) / 2;
+    int x2 = (n * (n + 1) * (2 * n + 1)) / 6;
+    double y = Bookkeeper::getTotalCost();
+    double xy = Bookkeeper::getCostTimesX();
+
+    /**we know linear equation is y= m * x + c**/
+
+    double m = ((n * xy) - (x * y)) / ((n * x2) - x * x);
+    double c = (y - (m * x)) / n;
+
+    cout<<endl<<"The prediction for next quarter's cost using linear regression: "<<m * (n + 1) + c<<endl;
 }
 
 int Bookkeeper::countMin()
