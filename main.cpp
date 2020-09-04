@@ -1,12 +1,12 @@
-#include"prisoner.h"
-#include"staff.h"
-#include"to_be_executed.h"
-#include"bookkeeper.h"
-#include"people.h"
-#include"guards.h"
-#include"Maximum_security_prisoner.h"
-#include"medium_security_prisoner.h"
-#include"minimum_security_prisoner.h"
+#include"include/prisoner.h"
+#include"include/staff.h"
+#include"include/to_be_executed.h"
+#include"include/bookkeeper.h"
+#include"include/People.h"
+#include"include/guards.h"
+#include"include/maximum_security_prisoner.h"
+#include"include/medium_security_prisoner.h"
+#include"include/minimum_security_prisoner.h"
 #include <fstream>
 #include <ios>
 #include <sstream>

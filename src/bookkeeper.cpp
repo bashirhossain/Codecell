@@ -1,12 +1,13 @@
-#include"prisoner.h"
-#include"staff.h"
-#include"to_be_executed.h"
-#include"bookkeeper.h"
-#include"people.h"
-#include"guards.h"
-#include"Maximum_security_prisoner.h"
-#include"medium_security_prisoner.h"
-#include"minimum_security_prisoner.h"
+#include"../include/prisoner.h"
+#include"../include/staff.h"
+#include"../include/to_be_executed.h"
+#include"../include/bookkeeper.h"
+#include"../include/People.h"
+#include"../include/guards.h"
+#include"../include/maximum_security_prisoner.h"
+#include"../include/medium_security_prisoner.h"
+#include"../include/minimum_security_prisoner.h"
+#include"../include/Finance.h"
 #include <fstream>
 #include <ios>
 #include <sstream>
@@ -19,7 +20,7 @@ using namespace std;
 void Bookkeeper::Open_book()
 {
 
-	std::cout<<"\nDo you want to Read(1) or Write(2) or search(3)"<<std::endl;
+	std::cout<<"\nDo you want to Read(1) or Write(2) or Search(3) or Finances(4)"<<std::endl;
 	int x;
 	std::cin>>x;
 	if(x==1)
@@ -111,9 +112,37 @@ void Bookkeeper::Open_book()
        }
 
     }
+    else if(x == 4)
+    {
+        std::cout<<"\nWrite Financial data(1), Read Financial data(2)"<<std::endl;
+        std::cin>>x;
+        if(x == 1)
+        {
+            /** if the text file is empty, then user is prompted to enter old data before entering present financial data*/
+            std::ifstream ifs("finance.txt", std::ios::ate); // std::ios::ate means open at end
+            if(ifs.tellg() == 0)
+            {
+                // file is empty
+                std::cout<<"It appears that there are no records of previous data.\nPlease enter some previous data before entering new data.\n";
+                std::cout<<"\nHow many instances of old data would you like to enter?\n";
+                int n;
+                std::cin>>n;
+                for(int i = 0; i < n; i++)
+                {
+                    Bookkeeper::input_old_Finance();
+                }
+            }
+            std::cout<<"\nPlease enter current data";
+            Bookkeeper::input_Finance();
+        }
+        else if(x == 2)
+        {
+            Bookkeeper::read_finance_in_file();
+        }
+    }
 }
 
-// comparison functions
+// comparison functions & finance specific functions
 bool lowerCompare(char s[], string toBeCompared)
 {
     string temp = s;
@@ -136,6 +165,250 @@ bool isIn(char crime[], string cl[], int n)  // checks if crime is in list
         }
     }
     return false;
+}
+
+int Bookkeeper::countExe()
+{
+    int exe = 0;
+
+    // read to_be_executed file
+    ifstream read_executed("execution_list.txt");
+    while(1)
+    {
+        string key_string;
+        if(!getline (read_executed, key_string))
+			break;
+        for(int i = 0; i < 32; i++)
+        {
+            getline (read_executed, key_string);
+        }
+        exe++;
+    }
+    return exe - 1;
+}
+
+int Bookkeeper::countMax()
+{
+    int maxCount = 0;
+
+    //read max security prisoner file
+    ifstream read_executed("Maximum_security_list.txt");
+    while(1)
+    {
+        string key_string;
+        if(!getline (read_executed, key_string))
+			break;
+        for(int i = 0; i < 31; i++)
+        {
+            getline (read_executed, key_string);
+        }
+        maxCount++;
+    }
+    return maxCount - 1;
+}
+
+int Bookkeeper::countMed()
+{
+    int medCount = 0;
+
+    //read med security prisoner file
+    ifstream read_executed("Medium_security_list.txt");
+    while(1)
+    {
+        string key_string;
+        if(!getline (read_executed, key_string))
+			break;
+        for(int i = 0; i < 31; i++)
+        {
+            getline (read_executed, key_string);
+        }
+        medCount++;
+    }
+    return medCount - 1;
+}
+
+int Bookkeeper::countMin()
+{
+    int minCount = 0;
+
+    //read med security prisoner file
+    ifstream read_executed("Minimum_security_list.txt");
+    while(1)
+    {
+        string key_string;
+        if(!getline (read_executed, key_string))
+			break;
+        for(int i = 0; i < 31; i++)
+        {
+            getline (read_executed, key_string);
+        }
+        minCount++;
+    }
+    return minCount - 1;
+}
+
+double Bookkeeper::calcBail()
+{
+    double total_bail = 0.0;
+    int exe = 0.0, maxBail = 0.0, minBail = 0.0, medBail = 0.0;
+
+    // read to be executed file
+    ifstream read_executed("execution_list.txt");
+    while(1)
+    {
+        string key_string;
+        if(!getline (read_executed, key_string))
+			break;
+        for(int i = 0; i < 27; i++)
+        {
+            getline (read_executed, key_string);
+        }
+        getline (read_executed, key_string);
+		stringstream geek2(key_string);
+		int Bail_amount = 0;
+		geek2>>Bail_amount;
+
+		exe += Bail_amount;
+
+		for(int i = 0; i < 5; i++)
+        {
+            getline (read_executed, key_string);
+        }
+    }
+
+    // read max sec file
+    ifstream read_executed2("Maximum_security_list.txt");
+    while(1)
+    {
+        string key_string;
+        if(!getline (read_executed2, key_string))
+			break;
+        for(int  i = 0; i < 27; i++)
+        {
+            getline (read_executed2, key_string);
+        }
+        getline (read_executed2, key_string);
+		stringstream geek2(key_string);
+		int Bail_amount = 0;
+		geek2>>Bail_amount;
+
+		maxBail += Bail_amount;
+
+		for(int i = 0; i < 3; i++)
+        {
+            getline (read_executed2, key_string);
+        }
+    }
+
+    // read med sec file
+    ifstream read_executed3("Medium_security_list.txt");
+    while(1)
+    {
+        string key_string;
+        if(!getline (read_executed3, key_string))
+			break;
+        for(int  i = 0; i < 27; i++)
+        {
+            getline (read_executed3, key_string);
+        }
+        getline (read_executed3, key_string);
+		stringstream geek2(key_string);
+		int Bail_amount = 0;
+		geek2>>Bail_amount;
+
+		medBail += Bail_amount;
+
+		for(int i = 0; i < 3; i++)
+        {
+            getline (read_executed3, key_string);
+        }
+    }
+
+    // read min sec file
+    ifstream read_executed4("Minimum_security_list.txt");
+    while(1)
+    {
+        string key_string;
+        if(!getline (read_executed4, key_string))
+			break;
+        for(int  i = 0; i < 27; i++)
+        {
+            getline (read_executed4, key_string);
+        }
+        getline (read_executed4, key_string);
+		stringstream geek2(key_string);
+		int Bail_amount = 0;
+		geek2>>Bail_amount;
+
+		minBail += Bail_amount;
+
+		for(int i = 0; i < 3; i++)
+        {
+            getline (read_executed4, key_string);
+        }
+    }
+
+    return (exe * 0.13) + (maxBail * 0.08) + (medBail * 0.04) + (minBail * 0.02);
+}
+
+double Bookkeeper::calcSalary()
+{
+    //read through the staff and guards records to get salary info
+    double totalSalary = 0.0;
+
+    //read the staff file
+    ifstream read_executed("Staff_list.txt");
+    while(1)
+    {
+        // code copied from read_staff_in_file function
+        string key_string;
+		if(!getline (read_executed, key_string))
+			break;
+
+		for(int i = 0; i < 13; i++)
+        {
+            getline (read_executed, key_string);  // data that is irrelevant
+        }
+
+		getline (read_executed, key_string);
+		stringstream geek(key_string);
+		double salary = 0;
+		geek>>salary;
+
+		getline (read_executed, key_string);
+
+		getline (read_executed, key_string);
+
+		//total salary sum
+		totalSalary += salary;
+    }
+
+    // read the guard file
+    ifstream read_executed2("Guards_list.txt");
+    while(1)
+    {
+        string key_string;
+
+		if(!getline (read_executed2, key_string))
+			break;
+        for(int i = 0; i < 14; i++)
+        {
+            getline (read_executed2, key_string);
+        }
+
+		getline (read_executed2, key_string);
+		stringstream geek(key_string);
+		double salary = 0;
+		geek>>salary;
+
+		getline (read_executed2, key_string);
+
+		getline (read_executed2, key_string);
+
+		//total salary sum
+		totalSalary += salary;
+    }
+    return totalSalary;
 }
 
 
@@ -352,7 +625,6 @@ void Bookkeeper::input_Prisoner()
 
 	std::cout<<"\nEnter Prisoner ID: ";
 	char id[11];
-	getchar();
 	cin>>id;
 	std::cout<<"\nEnter Crime: ";
 	char Crime[25];
@@ -418,9 +690,9 @@ void Bookkeeper::input_Prisoner()
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
         std::cout << "Invalid input. Try again.\n";
     }
+    getchar();
 	char Appeal_for_release_status[15];
 	std::cout<<"\nAppeal for release status: ";
-	getchar();
 	gets(Appeal_for_release_status);
 	char Utility_status[10];
 	std::cout<<"\nEnter Utility status: ";
@@ -533,6 +805,192 @@ void Bookkeeper::input_Prisoner()
         }
     }
 }
+
+
+void Bookkeeper::input_Finance()
+{
+    std::cout<<"\nEnter Quarter Name: ";
+    char qName[20];
+	std::cin>>qName;
+    double stipend;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter Government Stipend (Double values): " && !(std::cin >> stipend))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+    double sales;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter Sales Revenue (Double values): " && !(std::cin >> sales))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+
+    /** bail is not inputted by user*/
+    double bail = Bookkeeper::calcBail();
+
+    double lease;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter Lease (Double values): " && !(std::cin >> lease))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+    double maintenance;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter Maintenance cost (Double values): " && !(std::cin >> maintenance))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+    double food;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter Food cost (Double values): " && !(std::cin >> food))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+
+    /** salary is not inputted by user*/
+    double salary = Bookkeeper::calcSalary();
+
+    double edu;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter Education Program cost (Double values): " && !(std::cin >> edu))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+    double laundry;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter Laundry cost (Double values): " && !(std::cin >> laundry))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+    double misc;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter any other cost (Double values): " && !(std::cin >> misc))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+
+    Finance F1(stipend, sales, bail, lease, maintenance, food, salary, edu, laundry, misc, qName);
+    Bookkeeper::write_finance_in_file(F1);
+    return;
+}
+
+void Bookkeeper::input_old_Finance()
+{
+    std::cout<<"\nEnter Quarter Name: ";
+    char qName[20];
+	std::cin>>qName;
+
+	double stipend;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter Government Stipend (Double values): " && !(std::cin >> stipend))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+
+    double sales;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter Sales Revenue (Double values): " && !(std::cin >> sales))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+
+    double bail;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter Total Bail (Double values): " && !(std::cin >> bail))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+
+    double lease;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter Sales Revenue (Double values): " && !(std::cin >> lease))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+
+    double maintenance;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter Maintenance cost (Double values): " && !(std::cin >> maintenance))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+
+    double food;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter Food cost (Double values): " && !(std::cin >> food))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+
+    double salary;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter Total Salary cost (Double values): " && !(std::cin >> salary))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+
+    double edu;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter Education Program cost (Double values): " && !(std::cin >> edu))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+
+    double laundry;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter Laundry cost (Double values): " && !(std::cin >> laundry))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+
+    double misc;
+	/**For not letting the user input anything other than the intended output*/
+	while (std::cout << "\nEnter any other cost (Double values): " && !(std::cin >> misc))
+    {
+        std::cin.clear(); //clears bad input flag
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //discards problematic input stored in buffer
+        std::cout << "Invalid input. Try again.\n";
+    }
+
+    Finance F1(stipend, sales, bail, lease, maintenance, food, salary, edu, laundry, misc, qName);
+    Bookkeeper::write_finance_in_file(F1);
+    return;
+}
+
 
 //Writers
 void Bookkeeper::write_Staff_in_file(Staff P1)
@@ -756,6 +1214,25 @@ void Bookkeeper:: write_minimum_security_prisoner(Minimum_security_prisoner P1)
 	/*P1.get_to_be_executed_last_meal()<<"\n"<<
 	P1.get_to_be_executed_execution_date()<<"\n"<<*/
 	std::endl;
+	execution_list.close();
+}
+
+void Bookkeeper::write_finance_in_file(Finance F1)
+{
+    ofstream execution_list("finance.txt",ios::app);
+    execution_list<<
+    F1.getQuarter()<<"\n"<<
+    F1.getStipend()<<"\n"<<
+    F1.getSales()<<"\n"<<
+    F1.getBail()<<"\n"<<
+    F1.getLease()<<"\n"<<
+    F1.getMaintenance()<<"\n"<<
+    F1.getFood()<<"\n"<<
+    F1.getSalary()<<"\n"<<
+    F1.getEdu()<<"\n"<<
+    F1.getLaundry()<<"\n"<<
+    F1.getMisc()<<"\n"<<
+    std::endl;
 	execution_list.close();
 }
 
@@ -1706,5 +2183,74 @@ void Bookkeeper::read_minimum_security_prisoner(int mode)
         if(mode==2&&flag!=1)
             cout<<"Nothing found"<<endl;
 
+}
+
+void Bookkeeper::read_finance_in_file()
+{
+    ifstream read_executed("finance.txt");
+    while(1)
+    {
+        string key_string;
+        char qName[100];
+		if(!getline (read_executed, key_string))
+			break;
+		strcpy(qName,key_string.c_str());
+
+		getline (read_executed, key_string);
+		stringstream geek(key_string);
+		double stipend = 0;
+		geek>>stipend;
+
+		getline (read_executed, key_string);
+		stringstream geek2(key_string);
+		double sales = 0;
+		geek2>>sales;
+
+		getline (read_executed, key_string);
+		stringstream geek3(key_string);
+		double bail = 0;
+		geek3>>bail;
+
+		getline (read_executed, key_string);
+		stringstream geek4(key_string);
+		double lease = 0;
+		geek4>>lease;
+
+		getline (read_executed, key_string);
+		stringstream geek5(key_string);
+		double maintenance = 0;
+		geek5>>maintenance;
+
+		getline (read_executed, key_string);
+		stringstream geek6(key_string);
+		double food = 0;
+		geek6>>food;
+
+		getline (read_executed, key_string);
+		stringstream geek7(key_string);
+		double salary = 0;
+		geek7>>salary;
+
+		getline (read_executed, key_string);
+		stringstream geek8(key_string);
+		double edu = 0;
+		geek8>>edu;
+
+		getline (read_executed, key_string);
+		stringstream geek9(key_string);
+		double laundry = 0;
+		geek9>>laundry;
+
+		getline (read_executed, key_string);
+		stringstream geek10(key_string);
+		double misc = 0;
+		geek10>>misc;
+
+		getline (read_executed, key_string);
+
+		Finance F1(stipend, sales, bail, lease, maintenance, food, salary, edu, laundry, misc, qName);
+		F1.getInfo();
+		std::cout<<"\n\n"<<std::endl;
+    }
 }
 

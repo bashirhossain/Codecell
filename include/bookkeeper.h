@@ -8,6 +8,7 @@
 #include"Maximum_security_prisoner.h"
 #include"medium_security_prisoner.h"
 #include"minimum_security_prisoner.h"
+#include"Finance.h"
 #include<string>
 
 
@@ -20,6 +21,15 @@ class Bookkeeper
 	void input_Prisoner();
 	void input_Staff();
 	void input_Guard();
+	void input_Finance();
+	void input_old_Finance();
+	//finance specific functions
+	int countExe();
+	int countMin();
+	int countMed();
+	int countMax();
+	double calcBail();
+	double calcSalary();
 	//checkers
 	//bool lowerCompare(char s[], std::string toBeCompared);
 	//bool isIn(char crime[], std::string cl[], int n);
@@ -31,6 +41,7 @@ class Bookkeeper
 	void write_maximum_security_prisoner(Maximum_security_prisoner P1);
 	void write_medium_security_prisoner(Medium_security_prisoner P1);
 	void write_minimum_security_prisoner(Minimum_security_prisoner P1);
+	void write_finance_in_file(Finance F1);
 	//Readers
 	void read_Staff_in_file(int mode);
 	void read_Guard_in_file(int mode);
@@ -39,6 +50,8 @@ class Bookkeeper
 	void read_maximum_security_prisoner(int mode);
 	void read_medium_security_prisoner(int mode);
 	void read_minimum_security_prisoner(int mode);
+
+	void read_finance_in_file();
 
 };
 
