@@ -1611,6 +1611,10 @@ void Bookkeeper::read_Staff_in_file(int mode)
         update_interface(u,attribute,att,&u_i,&u_double);
 
     }
+    if(mode==type::normal)
+    {
+        cout<<left<<setw(18)<<"Name "<<left<<setw(4)<<"Age "<<left<<setw(7)<<"Gender "<<left<<setw(15)<<"Occupation "<<left<<setw(6)<<"ID "<<setw(20)<<"Profession"<<setw(10)<<"Rank"<<endl;
+    }
     while(1)
     {
         string key_string;
@@ -1719,8 +1723,9 @@ void Bookkeeper::read_Staff_in_file(int mode)
         Staff P1(fname,lname,A,g,ad,p,o,hs,r,id,rank,Profession, shift,psyche,requests, experience,salary);
 
         if(mode==type::normal)
-        {P1.staff_getinfo();
-          std::cout<<"\n\n"<<std::endl;
+        {
+            P1.People::display();
+            P1.Staff::display();
         }
         else if(mode==type::search)
         {
@@ -1779,6 +1784,10 @@ void Bookkeeper::read_Guard_in_file(int mode)
     {
 
         update_interface(u,attribute,att,&u_i,&u_double);
+    }
+    if(mode==type::normal)
+    {
+        cout<<left<<setw(18)<<"Name "<<left<<setw(4)<<"Age "<<left<<setw(7)<<"Gender "<<left<<setw(15)<<"Occupation "<<left<<setw(6)<<"ID "<<setw(6)<<"Unit"<<setw(10)<<"Rank"<<endl;
     }
     while(1)
     {
@@ -1898,8 +1907,8 @@ void Bookkeeper::read_Guard_in_file(int mode)
 
         if(mode==type::normal)
         {
-            P1.guard_getinfo();
-        std::cout<<"\n\n"<<std::endl;
+            P1.People::display();
+            P1.Guards::display();
         }
         else if(mode==type::search)
         {
@@ -1965,7 +1974,10 @@ void Bookkeeper::read_To_be_Executed_from_file(int mode)
         update_interface(u,attribute,att,&u_i,&u_double);
 
     }
-
+    if(mode==type::normal)
+    {
+        cout<<left<<setw(18)<<"Name "<<left<<setw(4)<<"Age "<<left<<setw(7)<<"Gender "<<left<<setw(15)<<"Occupation "<<left<<setw(9)<<"ID "<<setw(13)<<"Crime"<<endl;
+    }
    while(1)
     {
         string key_string;
@@ -2131,9 +2143,10 @@ void Bookkeeper::read_To_be_Executed_from_file(int mode)
 
         To_be_Executed P1(fname,lname,A,g,ad,p,o,hs,r,id,Crime,Sentence,Location_of_cell,Admission_date,Release_date, Guard_statement,Staff_statement,solitary_confinement_visits,Overall_evaluation,Visitor_Info,General_request,Psychological_status,Job_status,Jailmate,Lawyer,Evidence_info,Conviction_date,Bail_amount,Appeal_for_release_status,Utility_status, prescription, Visiting_status,last_meal,execution_date);
 
-    if(mode==type::normal)
-        {P1.To_be_Executed_getinfo();
-            std::cout<<"\n\n"<<std::endl;
+        if(mode==type::normal)
+        {
+            P1.People::display();
+            P1.Prisoner::display();
         }
 
 
@@ -2189,6 +2202,10 @@ ifstream read_executed("Maximum_security_list.txt");
     else if(mode==type::update)//update interface
     {
     update_interface(u,attribute,att,&u_i,&u_double);
+    }
+    if(mode==type::normal)
+    {
+        cout<<left<<setw(18)<<"Name "<<left<<setw(4)<<"Age "<<left<<setw(7)<<"Gender "<<left<<setw(15)<<"Occupation "<<left<<setw(9)<<"Prisoner "<<setw(13)<<"Crime"<<endl;
     }
     while(1)
     {
@@ -2352,9 +2369,10 @@ ifstream read_executed("Maximum_security_list.txt");
 
         Maximum_security_prisoner P1(fname,lname,A,g,ad,p,o,hs,r,id,Crime,Sentence,Location_of_cell,Admission_date,Release_date, Guard_statement,Staff_statement,solitary_confinement_visits,Overall_evaluation,Visitor_Info,General_request,Psychological_status,Job_status,Jailmate,Lawyer,Evidence_info,Conviction_date,Bail_amount,Appeal_for_release_status,Utility_status, prescription, Visiting_status);
 
-    if(mode==type::normal)
-        {P1.get_prisoner_info();
-         std::cout<<"\n\n"<<std::endl;
+        if(mode==type::normal)
+        {
+            P1.People::display();
+            P1.Prisoner::display();
         }
         else if(mode==type::search)
         {
@@ -2408,7 +2426,10 @@ void Bookkeeper::read_medium_security_prisoner(int mode)
     {
      update_interface(u,attribute,att,&u_i,&u_double);
     }
-
+    if(mode==type::normal)
+    {
+        cout<<left<<setw(18)<<"Name "<<left<<setw(4)<<"Age "<<left<<setw(7)<<"Gender "<<left<<setw(15)<<"Occupation "<<left<<setw(9)<<"Prisoner "<<setw(13)<<"Crime"<<endl;
+    }
     while(1)
     {
         string key_string;
@@ -2570,9 +2591,10 @@ void Bookkeeper::read_medium_security_prisoner(int mode)
 
         Medium_security_prisoner P1(fname,lname,A,g,ad,p,o,hs,r,id,Crime,Sentence,Location_of_cell,Admission_date,Release_date, Guard_statement,Staff_statement,solitary_confinement_visits,Overall_evaluation,Visitor_Info,General_request,Psychological_status,Job_status,Jailmate,Lawyer,Evidence_info,Conviction_date,Bail_amount,Appeal_for_release_status,Utility_status, prescription, Visiting_status);
 
-                if(mode==type::normal)
-        {P1.get_prisoner_info();
-         std::cout<<"\n\n"<<std::endl;
+        if(mode==type::normal)
+        {
+            P1.People::display();
+            P1.Prisoner::display();
         }
         else if(mode==type::search)
         {
@@ -2621,6 +2643,10 @@ void Bookkeeper::read_minimum_security_prisoner(int mode)
      else if(mode==type::update)//update interface
     {
      update_interface(u,attribute,att,&u_i,&u_double);
+    }
+    if(mode==type::normal)
+    {
+        cout<<left<<setw(18)<<"Name "<<left<<setw(4)<<"Age "<<left<<setw(7)<<"Gender "<<left<<setw(15)<<"Occupation "<<left<<setw(9)<<"Prisoner "<<setw(13)<<"Crime"<<endl;
     }
     while(1)
     {
@@ -2781,8 +2807,9 @@ void Bookkeeper::read_minimum_security_prisoner(int mode)
 
         Minimum_security_prisoner P1(fname,lname,A,g,ad,p,o,hs,r,id,Crime,Sentence,Location_of_cell,Admission_date,Release_date, Guard_statement,Staff_statement,solitary_confinement_visits,Overall_evaluation,Visitor_Info,General_request,Psychological_status,Job_status,Jailmate,Lawyer,Evidence_info,Conviction_date,Bail_amount,Appeal_for_release_status,Utility_status, prescription, Visiting_status);
         if(mode==type::normal)
-        {P1.get_prisoner_info();
-         std::cout<<"\n\n"<<std::endl;
+        {
+            P1.People::display();
+            P1.Prisoner::display();
         }
 
         else if(mode==type::search)
@@ -2803,7 +2830,7 @@ void Bookkeeper::read_minimum_security_prisoner(int mode)
 
         }
         read_executed.close();
-cout<<"flag 3: "<<flag3<<endl;
+        //cout<<"flag 3: "<<flag3<<endl;
         if(mode==type::search&&flag!=1)
             cout<<"Nothing found"<<endl;
 

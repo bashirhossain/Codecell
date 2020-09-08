@@ -40,6 +40,8 @@ public:
 	void setstaff_salary(double salary);
 	void staff_setinfo(char* fname,char* lname,int A,char* g,char* ad,char* p,char* o,char* hs,char* r,char* id,char* rank,char* Profession, char* shift, char* psyche,char* requests, int experience,double salary);
 
+	//display
+	void display();
 };
 
 #endif // STAFF_H

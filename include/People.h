@@ -1,7 +1,6 @@
 #ifndef PEOPLE_H
 #define PEOPLE_H
-
-
+#include <iomanip>
 class People
 {
    protected:
@@ -42,6 +41,9 @@ public:
 	void people_setHs(char* hs);
 	void people_setRel(char* r);
 	void people_setinfo(char* fname,char* lname,int A,char* g,char* ad,char* p,char* o,char* hs,char* r);
+
+	//display
+	void display();
 };
 
 #endif // PEOPLE_H

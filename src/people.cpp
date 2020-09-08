@@ -1,5 +1,6 @@
 #include"people.h"
 #include<iostream>
+using namespace std;
 People::People()
 {
 
@@ -101,4 +102,9 @@ void People::people_setinfo(char* fname,char* lname,int A,char* g,char* ad,char*
 	people_setOcc(o);
 	people_setHs(hs);
 	people_setRel(r);
+}
+
+void People::display()
+{
+	std::cout<<left<<setw(18)<<people_getFname()<<left<<setw(4)<<people_getAge()<<left<<setw(7)<<people_getG()<<left<<setw(15)<<people_getOcc();
 }

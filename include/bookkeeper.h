@@ -10,6 +10,8 @@
 #include"minimum_security_prisoner.h"
 #include"Finance.h"
 #include<string>
+#include<vector>
+#include<iomanip>
 
 
 class Bookkeeper

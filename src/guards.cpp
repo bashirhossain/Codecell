@@ -1,6 +1,7 @@
 #include "guards.h"
 
 #include<iostream>
+using namespace std;
 Guards::Guards()
 {
 
@@ -105,4 +106,9 @@ void Guards::guards_setinfo(char* fname,char* lname,int A,char* g,char* ad,char*
 	guard_setpsyche_evaluation(psyche_evaluation);
 	guard_setsalary(salary);
 	guard_setexperience(experience);
+}
+
+void Guards::display()
+{
+	std::cout<<left<<setw(6)<<guard_getid()<<setw(6)<<guard_getunit()<<setw(10)<<guard_getrank()<<endl;
 }

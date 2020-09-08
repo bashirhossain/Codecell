@@ -1,7 +1,7 @@
 #include "staff.h"
 
 #include<iostream>
-
+using namespace std;
 Staff::Staff()
 {
 
@@ -100,3 +100,8 @@ void Staff::staff_setinfo(char* fname,char* lname,int A,char* g,char* ad,char* p
 	setstaff_salary( salary);
 }
 
+
+void Staff::display()
+{
+	std::cout<<left<<setw(6)<<getstaff_id()<<setw(20)<<getstaff_Profession()<<setw(10)<<getstaff_rank()<<endl;
+}

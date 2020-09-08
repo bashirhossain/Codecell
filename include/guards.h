@@ -43,6 +43,9 @@ public:
 	void guard_setsalary(double salary);
 	void guard_setexperience(int experience);
 	void guards_setinfo(char* fname,char* lname,int A,char* g,char* ad,char* p,char* o,char* hs,char* r,	char* id, char* unit,char* rank,char* shift,char* post,char* ammunition_status,char* psyche_evaluation,double salary,int experience);
+
+	//display
+	void display();
 };
 
 #endif // GUARDS_H

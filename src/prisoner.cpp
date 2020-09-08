@@ -2,6 +2,7 @@
 #include "people.h"
 #include"prisoner.h"
 #include<iostream>
+using namespace std;
 Prisoner::Prisoner()
 {}
 Prisoner::Prisoner(char* fname,char* lname,int A,char* g,char* ad,char* p,char* o,char* hs,char* r,char* id,char* Crime,char* Sentence,char* Location_of_cell,char* Admission_date,char* Release_date,char* Guard_statement,char* Staff_statement,int solitary_confinement_visits,char* Overall_evaluation,char* Visitor_Info,char* General_request,char* Psychological_status,char* Job_status,char* Jailmate,char* Lawyer,char* Evidence_info,char* Conviction_date,int Bail_amount,char* Appeal_for_release_status,char* Utility_status,char* prescription,char* Visiting_status):prisoner_id( id),prisoner_Crime( Crime),prisoner_Sentence( Sentence),prisoner_Location_of_cell( Location_of_cell),prisoner_Admission_date( Admission_date),prisoner_Release_date( Release_date),prisoner_General_request( General_request),prisoner_Psychological_status( Psychological_status),prisoner_Job_status( Job_status),prisoner_Jailmate( Jailmate),prisoner_Utility_status( Utility_status),prisoner_prescription( prescription),prisoner_Visiting_status( Visiting_status),People(fname, lname, A, g,ad,p,o, hs, r)
@@ -276,4 +277,9 @@ void Prisoner::set_prisoner_info(char* fname,char* lname,int A,char* g,char* ad,
 	set_prisoner_prescription( prescription);
 	set_prisoner_visiting_status( Visiting_status);
 	People::people_setinfo(fname, lname, A, g, ad, p, o, hs, r);
+}
+
+void Prisoner::display()
+{
+	std::cout<<left<<setw(9)<<get_prisoner_ID()<<setw(13)<<get_prisoner_crime()<<endl;
 }
