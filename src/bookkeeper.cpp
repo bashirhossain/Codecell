@@ -16,11 +16,145 @@
 #include<iostream>
 #include<limits>
 #include<algorithm>
+#include<cstring>
+#include<windows.h>
+#include<conio.h>
+#include<iostream>
+#include<ctime>
 using namespace std;
+void Bookkeeper::login()
+{
+    cout<<"Enter User name and password:"<<endl;
+
+   char p[500];
+ char user[130];
+  char pass[130];
+char username[130];
+  char password[130];
+   cout<<"Username: ";
+  cin.getline(user,130);
+  cout<<"Password ";
+  char a;
+  int flag=0;
+  while(1)
+  {
+      a=_getch();
+      if((a>='a'&&a<='z')||(a>='A'&&a<='Z')||(a>='0'&&a<='9')||a==' ')
+      {
+          p[flag]=a;
+          ++flag;
+          cout<<"*";
+      }
+      if(a=='\b'&&flag>=1)
+      {
+          cout<<"\b \b";
+          flag--;
+      }
+      if(a=='\r')
+      {
+         p[flag]='\0';
+         break;
+
+      }
+
+  }
+  int k=0;
+
+      while(k!=flag)
+      {
+          pass[k]=p[k];
+          k++;
+      }
+      pass[k]='\0';
+      cout<<endl;
+
+int i=0;
+    ifstream fp;
+    fstream lo;
+
+    fp.open("players.txt");
+     role=1;
+     time_t now=time(0);
+     char *dt=ctime(&now);
+     char temp1[130];
+     char temp2[130];
+        string key_string;
+    while(fp)
+    {
+
+    getline (fp, key_string);
+    strcpy(username,key_string.c_str());
+    getline (fp, key_string);
+    strcpy(password,key_string.c_str());
+    getline (fp, key_string);
+        stringstream geek1(key_string);
+        geek1>>role;
+//                 cout<<strcmp(user,username)<<endl;
+//        cout<<strlen(user)<<" "<<user<<endl;
+//        cout<<strlen(username)<<" "<<username<<endl;
+        if((strcmp(user,username)==0)&&(strcmp(pass,password)==0))
+        {
+            i=1;
+            lo.open("log.txt",ios::app);
+            lo<<username<<endl<<dt<<endl;
+            cout<<"WELCOME"<<endl;
+            break;
+        }
+
+    }
+    if(i==0)
+    {
+        cout<<"nice try"<<endl;
+        cout<<"Now Try again"<<endl;
+        login();
+
+    }
+
+    fp.close();
+
+
+
+
+}
+
+void Bookkeeper::signup()
+{
+    char username[130];
+    char password[130];
+    cin.ignore();
+    cout<<"Username: ";
+
+    cin.getline(username,130);
+    cout<<"Password: ";
+
+    cin.getline(password,130);
+    cout<<endl;
+
+    fstream fp;
+    fp.open("players.txt",ios::app);
+    fp<<username<<endl<<password<<endl;
+
+}
+
+void Bookkeeper::make_role()
+{
+    int give_role;
+    signup();
+    cout<<"Permissions to give this account:"<<endl;
+    cout<<"1-- admin"<<endl;
+    cout<<"2-- read only"<<endl;
+    cout<<"3-- read and write only"<<endl;
+    cout<<"4-- modify only"<<endl;
+    cin>>give_role;
+    fstream fp;
+    fp.open("players.txt",ios::app);
+    fp<<give_role<<endl;
+    fp.close();
+}
 void Bookkeeper::Open_book()
 {
 
-	std::cout<<"\nDo you want to Read(1) or Write(2) or Search(3) or Finances(4) or update(5)"<<std::endl;
+	std::cout<<"\nDo you want to Read(1) or Write(2) or Search(3) or Finances(4) or update(5) or check log(6)"<<std::endl;
 	int x;
 	std::cin>>x;
 	if(x==1)
@@ -59,7 +193,8 @@ void Bookkeeper::Open_book()
 	}
 	else if(x==2)
 	{
-		std::cout<<"\nPrisoner(1), Guard(2) or Staff(3)"<<std::endl;
+		if(role==kind::read_write||role==kind::admin)
+		{std::cout<<"\nPrisoner(1), Guard(2) or Staff(3)"<<std::endl;
 		cin>>x;
 		if(x==1)
 		{
@@ -73,9 +208,15 @@ void Bookkeeper::Open_book()
 		{
 			input_Staff();
 		}
+		}
+		else
+    {
+        cout<<"you do not have permission to write on codecell"<<endl;
+    }
 	}
 	else if(x==3)
     {
+
         std::cout<<"\nPrisoner(1), Guard(2) or Staff(3)"<<std::endl;
        cin>>x;
        if(x==2)
@@ -111,6 +252,7 @@ void Bookkeeper::Open_book()
 
        }
 
+
     }
     else if(x == 4)
     {
@@ -118,21 +260,26 @@ void Bookkeeper::Open_book()
         std::cin>>x;
         if(x == 1)
         {
+            if(role==kind::read_write||role==kind::admin)
             Bookkeeper::input_Finance();
-        }
+         else
+         cout<<"you do not have permission to write on codecell"<<endl;
+         }
         else if(x == 2)
         {
             Bookkeeper::read_finance_in_file();
         }
         else if(x == 3)
         {
-            cout<<endl<<Bookkeeper::getCostPrediction()<<endl;
+          cout<<endl<<Bookkeeper::getCostPrediction()<<endl;
         }
+
     }
 
     else if(x==5)
     {
-        std::cout<<"\nPrisoner(1), Guard(2) or Staff(3)"<<std::endl;
+       if(role==kind::modify||role==kind::admin)
+       {std::cout<<"\nPrisoner(1), Guard(2) or Staff(3)"<<std::endl;
        cin>>x;
        if(x==2)
        {
@@ -167,6 +314,31 @@ void Bookkeeper::Open_book()
 
        }
 
+    }
+        else
+        cout<<"you do not have permission to update records on codecell"<<endl;
+
+    }
+    else if(x==6)
+    {
+        ifstream fp;
+        fp.open("log.txt");
+        char dt[130];
+        char username[130];
+        cout<<"username    date and time"<<endl;
+        cout<<endl;
+        string key;
+        while(fp)
+        {
+            getline(fp,key);
+            strcpy(username,key.c_str());
+            getline(fp,key);
+            strcpy(dt,key.c_str());
+            getline(fp,key);
+
+            cout<<left<<setw(25)<<username<<" "<<dt<<left<<" "<<endl;
+            cout<<"--------------------------------------"<<endl;
+        }
     }
 }
 
@@ -1217,7 +1389,6 @@ void Bookkeeper:: write_maximum_security_prisoner(Maximum_security_prisoner P1,i
         execution_list.open("Maximum_security_list.txt",ios::app);
     else{
         execution_list.open("temp.txt",ios::app);
-        cout<<"temp opened"<<endl;
         }
  if(mode==type::update)
        {
@@ -1439,9 +1610,7 @@ void Bookkeeper::update_people(int *flag3,char fname[],int *A, char g[],char ad[
 
 void Bookkeeper::update_work(int *flag3,char rank[],char shift[],int*experience,int*u_i,double*salary,double*u_double,char attribute[],char id[],char u[],char att[])
 {
-    //cout<<"test"<<endl;
-
-              if(strcmp(attribute,"rank")==0)
+        if(strcmp(attribute,"rank")==0)
            {strcpy(rank,att);
              *flag3=1;
            }
@@ -1560,12 +1729,16 @@ void Bookkeeper::update_interface(char u[],char attribute[],char att[],int*u_i,d
 
       cout<<"ID or name : ";
       cin.getline(u,30);
-      cout<<"Choose attribute (age, experience, bail amount, solitary confinement visits, salary): ";
+      cout<<"Choose attribute: ";
       cin.getline(attribute,50);
+      for(int i=0;i<strlen(attribute);i++)
+      {
+          attribute[i]=tolower(attribute[i]);
+      }
       cout<<"\n new value :"<<endl;
       if(strcmp(attribute,"age")==0||strcmp(attribute,"experience")==0||strcmp(attribute,"bail amount")==0||strcmp(attribute,"solitary confinement visits")==0)
-        {cin>>*u_i;
-         cout<<*u_i<<endl;
+        {
+            cin>>*u_i;
         }
         else if(strcmp(attribute,"salary")==0)
         {
@@ -1602,7 +1775,7 @@ void Bookkeeper::read_Staff_in_file(int mode)
     if (mode==type::search)
     {
         getchar();
-        cout<<"ID: ";
+        cout<<"ID or name: ";
         cin.getline(identification,100);
     }
     else if(mode==type::update)
@@ -1700,7 +1873,7 @@ void Bookkeeper::read_Staff_in_file(int mode)
 //   cout<<fname<<endl;
 
         if((strcmp(u, fname) == 0)&&mode==type::update||strcmp(u, id) == 0&&mode==type::update)
-        {  cout<<u<<endl;
+        {
         if(strcmp(attribute,"psyche")==0)
             {strcpy(psyche,att);
               flag3=1;
@@ -1777,7 +1950,7 @@ void Bookkeeper::read_Guard_in_file(int mode)
     if (mode==type::search)//search interface
     {
 
-        cout<<"ID: ";
+        cout<<"ID or name: ";
         cin.getline(identification,100);
     }
     else if(mode==type::update)//update interface
@@ -1923,7 +2096,7 @@ void Bookkeeper::read_Guard_in_file(int mode)
         }
         else if(mode==type::update)
         {
-           cout<<"hi"<<endl;
+
             write_Guard_in_file(P1,type::update); //writing updated version in file
         }
         }
@@ -1963,7 +2136,7 @@ void Bookkeeper::read_To_be_Executed_from_file(int mode)
     if (mode==2)
     {
 
-        cout<<"ID: ";
+        cout<<"ID or name: ";
 
   cin.getline(identification,100);
     }
@@ -2169,7 +2342,7 @@ void Bookkeeper::read_To_be_Executed_from_file(int mode)
         cout<<"Nothing Found"<<endl;
         else if(mode==3&&flag2==1)
         {
-            cout<<"done"<<endl;
+
             remove("execution_list.txt");
             rename("temp.txt","execution_list.txt");
 
@@ -2363,7 +2536,7 @@ ifstream read_executed("Maximum_security_list.txt");
 
                 update_people(&flag3,fname,&A,g,ad,p,o,hs,r,id,&u_i,u,att,attribute);
                 update_prisoner(&flag3,Crime,Sentence,Location_of_cell,Admission_date,Release_date, Guard_statement,Staff_statement,&solitary_confinement_visits,Overall_evaluation,Visitor_Info,General_request,Psychological_status,Job_status,Jailmate,Lawyer,Evidence_info,Conviction_date,&Bail_amount,Appeal_for_release_status,Utility_status, prescription, Visiting_status,att,attribute,&u_i,u,id);
-                cout<<flag3<<endl;
+
             }
         }
 
@@ -2397,7 +2570,7 @@ ifstream read_executed("Maximum_security_list.txt");
         cout<<"Nothing Found"<<endl;
        if(mode==type::update&&flag2==1)
         {
-            cout<<"done"<<flag3<<endl;
+
 
             remove("Maximum_security_list.txt");
             rename("temp.txt","Maximum_security_list.txt");
@@ -2637,7 +2810,7 @@ void Bookkeeper::read_minimum_security_prisoner(int mode)
     ifstream read_executed("Minimum_security_list.txt");
     if(mode==type::search)
     {
-        cout<<"ID: ";
+        cout<<"ID or name: ";
         cin.getline(identification,100);
     }
      else if(mode==type::update)//update interface
@@ -2837,7 +3010,7 @@ void Bookkeeper::read_minimum_security_prisoner(int mode)
 
       if(mode==type::update&&flag2==1)
         {
-            cout<<"done"<<endl;
+
             remove("Minimum_security_list.txt");
             rename("temp.txt","Minimum_security_list.txt");
 
