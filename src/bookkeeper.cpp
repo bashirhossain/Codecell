@@ -154,7 +154,7 @@ void Bookkeeper::make_role()
 void Bookkeeper::Open_book()
 {
 
-	std::cout<<"\nDo you want to Read(1) or Write(2) or Search(3) or Finances(4) or update(5) or check log(6)"<<std::endl;
+	std::cout<<"\nDo you want to Read(1) or Write(2) or Search(3) or Finances(4) or update(5) or log(6) or delete(7)"<<std::endl;
 	int x;
 	std::cin>>x;
 	if(x==1)
@@ -276,19 +276,27 @@ void Bookkeeper::Open_book()
 
     }
 
-    else if(x==5)
+    else if(x==5||x==7)
     {
+       int j=x;
        if(role==kind::modify||role==kind::admin)
        {std::cout<<"\nPrisoner(1), Guard(2) or Staff(3)"<<std::endl;
        cin>>x;
        if(x==2)
        {
+           if(j==5)
            read_Guard_in_file(type::update);
+           else if(j==7)
+           read_Guard_in_file(type::delete1);
+
        }
        else if(x==3)
        {
+           if(j==5)
            read_Staff_in_file(type::update);
-       }
+           else if(j==7)
+           read_Staff_in_file(type::delete1);
+      }
        else if(x==1)
        {
 
@@ -297,19 +305,34 @@ void Bookkeeper::Open_book()
 
             if(x==4)
             {
+              if(j==5)
               read_To_be_Executed_from_file(type::update);
+              else if(j==7)
+              read_To_be_Executed_from_file(type::delete1);
+
             }
             if(x==1)
             {
+                if(j==5)
                 read_maximum_security_prisoner(type::update);
+                else if(j==7)
+                read_maximum_security_prisoner(type::delete1);
             }
             else if(x==2)
             {
+                if(j==5)
                 read_medium_security_prisoner(type::update);
+                else if(j==7)
+                read_medium_security_prisoner(type::delete1);
+
             }
             else if(x==3)
             {
+                if(j==5)
                 read_minimum_security_prisoner(type::update);
+                else if(j==7)
+                read_minimum_security_prisoner(type::delete1);
+
             }
 
        }
@@ -1772,7 +1795,7 @@ void Bookkeeper::read_Staff_in_file(int mode)
     int u_i=0;double u_double=0;char att[150];
     //int identification;
 
-    if (mode==type::search)
+    if (mode==type::search||mode==type::delete1)
     {
         getchar();
         cout<<"ID or name: ";
@@ -1787,7 +1810,9 @@ void Bookkeeper::read_Staff_in_file(int mode)
     if(mode==type::normal)
     {
         cout<<left<<setw(18)<<"Name "<<left<<setw(4)<<"Age "<<left<<setw(7)<<"Gender "<<left<<setw(15)<<"Occupation "<<left<<setw(6)<<"ID "<<setw(20)<<"Profession"<<setw(10)<<"Rank"<<endl;
+
     }
+
     while(1)
     {
         string key_string;
@@ -1891,7 +1916,17 @@ void Bookkeeper::read_Staff_in_file(int mode)
         flag2=1;
          }
 
+       int flag4=0;
+       if(mode==type::delete1)
+        {
+            if(strcmp(identification, id) == 0||strcmp(identification,fname)==0)
+            {flag4=1;
+             flag2=1;
+            }
 
+
+
+        }
 
         Staff P1(fname,lname,A,g,ad,p,o,hs,r,id,rank,Profession, shift,psyche,requests, experience,salary);
 
@@ -1914,11 +1949,13 @@ void Bookkeeper::read_Staff_in_file(int mode)
         {
           write_Staff_in_file(P1,type::update);
         }
+        else if(mode==type::delete1&&flag4!=1)
+            write_Staff_in_file(P1,type::update);
 
 
     }
     read_executed.close();
-    if(mode==type::update)
+    if(mode==type::update||mode==type::delete1)
     {
         remove("Staff_list.txt");
         rename("temp.txt","Staff_list.txt");
@@ -1927,7 +1964,7 @@ void Bookkeeper::read_Staff_in_file(int mode)
     if(mode==type::search&&flag!=1)
         cout<<"Nothing found"<<endl;
 
-     else if(mode==type::update&&flag2==0)
+     else if(mode==type::update&&flag2==0||mode==type::delete1&&flag2==0)
     cout<<"no account of this id or name exists"<<endl;
         if(mode==type::update&&flag3==0&&flag2!=0)
         cout<<"attribute does not exist"<<endl;
@@ -1947,7 +1984,7 @@ void Bookkeeper::read_Guard_in_file(int mode)
     char attribute[50]="";
     int u_i=0;double u_double=0;char att[150];
 
-    if (mode==type::search)//search interface
+    if (mode==type::search||mode==type::delete1)//search interface
     {
 
         cout<<"ID or name: ";
@@ -2075,6 +2112,16 @@ void Bookkeeper::read_Guard_in_file(int mode)
             flag3=1;
             }
            }
+           int flag4=0;
+           if(mode==type::delete1)
+           {
+                 if(strcmp(identification, id) == 0||strcmp(identification,fname)==0)
+                 {
+                     flag4=1;
+                     flag2=1;
+                 }
+
+           }
 
         Guards P1(fname,lname,A,g,ad,p, o,hs,r,	id, unit, rank,shift,post,ammunition_status,psyche_evaluation, salary, experience);
 
@@ -2085,6 +2132,7 @@ void Bookkeeper::read_Guard_in_file(int mode)
         }
         else if(mode==type::search)
         {
+
          if(strcmp(identification, id) == 0||strcmp(identification,fname)==0)//searching for id
         {
          //cout<<fname<<" "<<strlen(fname)<<endl;
@@ -2099,20 +2147,25 @@ void Bookkeeper::read_Guard_in_file(int mode)
 
             write_Guard_in_file(P1,type::update); //writing updated version in file
         }
+        else if(mode==type::delete1)
+        {
+          if(flag4!=1)
+           write_Guard_in_file(P1,type::update);
+        }
         }
 
     read_executed.close();
     if(mode==type::search&&flag!=1)
         cout<<"Nothing Found"<<endl;
 
-    if(mode==type::update)//swap new temp file with guard file
+    if(mode==type::update||mode==type::delete1)//swap new temp file with guard file
      {
         remove("Guards_list.txt");
         rename("temp.txt","Guards_list.txt");
         //cout<<"mission impossible"<<endl;
 
      }
-      if(mode==type::update&&flag2==0)
+      if(mode==type::update&&flag2==0||mode==type::delete1&&flag2==0)
             cout<<"no account of this id or name exists"<<endl;
           if(mode==type::update&&flag3==0&&flag2!=0)
             cout<<"no attribute of this type exists"<<endl;
@@ -2133,7 +2186,7 @@ void Bookkeeper::read_To_be_Executed_from_file(int mode)
     int flag3=0;//attribute match update
    cin.ignore();
     ifstream read_executed("execution_list.txt");
-    if (mode==2)
+    if (mode==type::search||mode==type::delete1)
     {
 
         cout<<"ID or name: ";
@@ -2160,7 +2213,7 @@ void Bookkeeper::read_To_be_Executed_from_file(int mode)
             break;
         strcpy(fname,key_string.c_str());
 
-        char lname[10]=" ";
+        char lname[10]="";
 
         char x[3];
         getline (read_executed, key_string);
@@ -2313,6 +2366,15 @@ void Bookkeeper::read_To_be_Executed_from_file(int mode)
                     }
                }
                }
+               int flag4=0;
+               if(mode==type::delete1)
+               {
+                   if(strcmp(identification, id) == 0||strcmp(identification,fname)==0)
+                   {
+                       flag4=1;
+                       flag2=1;
+                   }
+               }
 
         To_be_Executed P1(fname,lname,A,g,ad,p,o,hs,r,id,Crime,Sentence,Location_of_cell,Admission_date,Release_date, Guard_statement,Staff_statement,solitary_confinement_visits,Overall_evaluation,Visitor_Info,General_request,Psychological_status,Job_status,Jailmate,Lawyer,Evidence_info,Conviction_date,Bail_amount,Appeal_for_release_status,Utility_status, prescription, Visiting_status,last_meal,execution_date);
 
@@ -2325,29 +2387,39 @@ void Bookkeeper::read_To_be_Executed_from_file(int mode)
 
        else if(mode==type::search)
         {
+             cout<<fname<<" "<<strlen(fname)<<endl;
+             cout<<identification<<" "<<strlen(identification)<<endl;
+         cout<<strcmp(identification,fname)<<endl;
             if(strcmp(identification, id) == 0||strcmp(identification,fname)==0)
                 {P1.To_be_Executed_getinfo();
                   flag=1;
                   break;
                 }
         }
-        else if(mode==3&&flag2==1)
+        else if(mode==type::update)
         {
           write_To_be_executed_in_file(P1,3);
         }
+        else if(mode==type::delete1&&flag4!=1)
+          write_To_be_executed_in_file(P1,3);
+
     }
     read_executed.close();
 
      if(mode==type::search&&flag!=1)
         cout<<"Nothing Found"<<endl;
-        else if(mode==3&&flag2==1)
+        else if(mode==3&&flag2==1||mode==type::delete1)
         {
 
             remove("execution_list.txt");
             rename("temp.txt","execution_list.txt");
 
         }
-        else if(mode==type::update&&flag2==0)
+        else if(mode==3&&flag2==0)
+        {
+            remove("temp.txt");
+        }
+        if(mode==type::update&&flag2==0||mode==type::delete1&&flag2==0)
             cout<<"no account of this id or name exists"<<endl;
        if(mode==type::update&&flag3==0&&flag2!=0)
             cout<<"no attribute of this type exists"<<endl;
@@ -2366,7 +2438,7 @@ ifstream read_executed("Maximum_security_list.txt");
     int flag3=0;//attribute match update
     char identification[100];
     int flag=0;//id match search
-    if(mode==type::search)
+    if(mode==type::search||mode==type::delete1)
     {
         cout<<"ID or name: ";
         cin.getline(identification,100);
@@ -2539,6 +2611,13 @@ ifstream read_executed("Maximum_security_list.txt");
 
             }
         }
+        int flag4=0;
+        if(mode==type::delete1)
+        {
+            if(strcmp(identification, id) == 0||strcmp(identification,fname)==0)
+              {flag4=1;
+              flag2=1;}
+        }
 
         Maximum_security_prisoner P1(fname,lname,A,g,ad,p,o,hs,r,id,Crime,Sentence,Location_of_cell,Admission_date,Release_date, Guard_statement,Staff_statement,solitary_confinement_visits,Overall_evaluation,Visitor_Info,General_request,Psychological_status,Job_status,Jailmate,Lawyer,Evidence_info,Conviction_date,Bail_amount,Appeal_for_release_status,Utility_status, prescription, Visiting_status);
 
@@ -2556,10 +2635,12 @@ ifstream read_executed("Maximum_security_list.txt");
              break;
             }
         }
-        else if(mode==type::update&&flag2==1)
+        else if(mode==type::update)
         {
             write_maximum_security_prisoner(P1,type::update);
         }
+        else if(mode==type::delete1&&flag4!=1)
+          write_maximum_security_prisoner(P1,type::update);
 
 
         }
@@ -2568,7 +2649,7 @@ ifstream read_executed("Maximum_security_list.txt");
 
      if(mode==type::search&&flag!=1)
         cout<<"Nothing Found"<<endl;
-       if(mode==type::update&&flag2==1)
+       if(mode==type::update&&flag2==1||mode==type::delete1)
         {
 
 
@@ -2577,6 +2658,10 @@ ifstream read_executed("Maximum_security_list.txt");
 
         }
         else if(mode==type::update&&flag2==0)
+        {
+            remove ("temp.txt");
+        }
+         if(mode==type::update&&flag2==0||mode==type::delete1&&flag2==0)
             cout<<"no account of this id or name exists"<<endl;
         if(mode==type::update&&flag3==0&&flag2!=0)
                 cout<<"No attribute of this type found"<<endl;
@@ -2589,7 +2674,7 @@ void Bookkeeper::read_medium_security_prisoner(int mode)
     int flag3=0;
 
     ifstream read_executed("Medium_security_list.txt");
-    if(mode==type::search)
+    if(mode==type::search||mode==type::delete1)
     {
         cout<<"ID or name: ";
         cin.getline(identification,100);
@@ -2760,7 +2845,14 @@ void Bookkeeper::read_medium_security_prisoner(int mode)
 
             }
         }
-
+        int flag4=0;
+         if(mode==type::delete1)
+         {
+            if(strcmp(identification,id)==0||strcmp(identification,fname)==0)
+            {flag4=1;
+            flag2=1;
+            }
+         }
 
         Medium_security_prisoner P1(fname,lname,A,g,ad,p,o,hs,r,id,Crime,Sentence,Location_of_cell,Admission_date,Release_date, Guard_statement,Staff_statement,solitary_confinement_visits,Overall_evaluation,Visitor_Info,General_request,Psychological_status,Job_status,Jailmate,Lawyer,Evidence_info,Conviction_date,Bail_amount,Appeal_for_release_status,Utility_status, prescription, Visiting_status);
 
@@ -2773,7 +2865,8 @@ void Bookkeeper::read_medium_security_prisoner(int mode)
         {
 
             if(strcmp(identification,id)==0||strcmp(identification,fname)==0)
-                {P1.get_prisoner_info();
+                {
+                 P1.get_prisoner_info();
                  flag=1;
                  break;
                 }
@@ -2782,13 +2875,16 @@ void Bookkeeper::read_medium_security_prisoner(int mode)
         {
             write_medium_security_prisoner(P1,type::update);
         }
+        else if(mode==type::delete1&&flag4!=1)
+            write_medium_security_prisoner(P1,type::update);
+
 
        }
 
       read_executed.close();
   if(mode==type::search&&flag!=1)
     cout<<"Nothing Found"<<endl;
-    else if(mode==type::update&&flag2==1)
+    else if(mode==type::update&&flag2==1||mode==type::delete1)
         {
 
             remove("Medium_security_list.txt");
@@ -2796,6 +2892,9 @@ void Bookkeeper::read_medium_security_prisoner(int mode)
 
         }
         else if(mode==type::update&&flag2==0)
+             remove("temp.txt");
+
+         if(mode==type::update&&flag2==0||mode==type::delete1&&flag2==0)
             cout<<"no account of this id or name exists"<<endl;
             if(mode==type::update&&flag3==0&&flag2!=0)
             cout<<"No attribute of this type found"<<endl;
@@ -2808,7 +2907,7 @@ void Bookkeeper::read_minimum_security_prisoner(int mode)
     int flag3=0;//attribute match update
 
     ifstream read_executed("Minimum_security_list.txt");
-    if(mode==type::search)
+    if(mode==type::search||mode==type::delete1)
     {
         cout<<"ID or name: ";
         cin.getline(identification,100);
@@ -2976,7 +3075,15 @@ void Bookkeeper::read_minimum_security_prisoner(int mode)
                 update_prisoner(&flag3,Crime,Sentence,Location_of_cell,Admission_date,Release_date, Guard_statement,Staff_statement,&solitary_confinement_visits,Overall_evaluation,Visitor_Info,General_request,Psychological_status,Job_status,Jailmate,Lawyer,Evidence_info,Conviction_date,&Bail_amount,Appeal_for_release_status,Utility_status, prescription, Visiting_status,att,attribute,&u_i,u,id);
 
             }
-
+        int flag4=0;
+        if(mode==type::delete1)
+        {
+            if(strcmp(identification,id)==0||strcmp(identification,fname)==0)
+            {
+                flag2=1;
+                flag4=1;
+            }
+        }
 
         Minimum_security_prisoner P1(fname,lname,A,g,ad,p,o,hs,r,id,Crime,Sentence,Location_of_cell,Admission_date,Release_date, Guard_statement,Staff_statement,solitary_confinement_visits,Overall_evaluation,Visitor_Info,General_request,Psychological_status,Job_status,Jailmate,Lawyer,Evidence_info,Conviction_date,Bail_amount,Appeal_for_release_status,Utility_status, prescription, Visiting_status);
         if(mode==type::normal)
@@ -2999,8 +3106,8 @@ void Bookkeeper::read_minimum_security_prisoner(int mode)
         {
             write_minimum_security_prisoner(P1,type::update);
         }
-
-
+        else if(mode==type::delete1&&flag4!=1)
+            write_minimum_security_prisoner(P1,type::update);
         }
         read_executed.close();
         //cout<<"flag 3: "<<flag3<<endl;
@@ -3008,15 +3115,19 @@ void Bookkeeper::read_minimum_security_prisoner(int mode)
             cout<<"Nothing found"<<endl;
 
 
-      if(mode==type::update&&flag2==1)
+      if(mode==type::update&&flag2==1||mode==type::delete1)
         {
 
             remove("Minimum_security_list.txt");
             rename("temp.txt","Minimum_security_list.txt");
 
         }
+        else if(mode==type::update&&flag2==0)
+        {remove("temp.txt");
 
-    else if(mode==type::update&&flag2==0)
+        }
+
+     if(mode==type::update&&flag2==0||mode==type::delete1&&flag2==0)
         cout<<"no account of this id or name exists"<<endl;
 
      if(mode==type::update&&flag3==0&&flag2!=0)

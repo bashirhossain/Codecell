@@ -1,5 +1,5 @@
 Michael Malloy
-65
+44
 Male
 411919510
 45/jk lane
@@ -14,21 +14,4 @@ ok
 none
 3.4
 543
-
-Tutul Rahman
-34
-Male
-191651651
-4 k block
-Engineer
-ko
-Islam
-21
-Water pump operator
-Junior
-day
-ok
-none
-2.42
-226
 
