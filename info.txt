@@ -1,0 +1,29 @@
+-----Minimum security prisoners
+crimes:
+fraud 
+embezzlement
+bribery
+money laundering
+tax evasion
+Location
+North Wing
+-----Medium security prisoners
+crimes:
+selling narcotics
+drunk driving
+hit and run
+theft
+possession of narcotics
+Location
+East Wing
+------Maximum security prisoners
+crimes
+murder
+rape
+assault
+armed robbery
+human trafficking
+Location
+South Wing
+If sentence=Death Sentence then prisoner is an executee
+

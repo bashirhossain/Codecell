@@ -154,7 +154,7 @@ void Bookkeeper::make_role()
 void Bookkeeper::Open_book()
 {
 
-	std::cout<<"\nDo you want to Read(1) or Write(2) or Search(3) or Finances(4) or update(5) or log(6) or delete(7)"<<std::endl;
+	std::cout<<"\nDo you want to Read(1) or Write(2) or Search(3) or Finances(4) or update(5) or log(6) or delete(7) or info(8)"<<std::endl;
 	int x;
 	std::cin>>x;
 	if(x==1)
@@ -337,7 +337,9 @@ void Bookkeeper::Open_book()
 
        }
 
+
     }
+
         else
         cout<<"you do not have permission to update records on codecell"<<endl;
 
@@ -363,6 +365,23 @@ void Bookkeeper::Open_book()
             cout<<"--------------------------------------"<<endl;
         }
     }
+     else if(x==8)
+       {
+           fstream fp;
+           fp.open("info.txt");
+           cout<<"Hi"<<endl;
+           string read;
+           while(1)
+           {
+                if(!getline (fp, read))
+            {
+              break;
+            }
+            cout<<read<<endl;
+           }
+           fp.close();
+       }
+
 }
 
 // comparison functions & finance specific functions
